@@ -136,7 +136,7 @@ npx jsii-release-nuget [DIR]
 |Option|Required|Description|
 |------|--------|-----------|
 |`NUGET_API_KEY`|Required|[NuGet API Key](https://www.nuget.org/account/apikeys) with "Push" permissions|
-|`NUGET_SOURCE`|Optional|The NuGet server URL (defaults to "https://api.nuget.org/v3/index.json"). Use "github" to publish to GitHub Packages|
+|`NUGET_SOURCE`|Optional|The NuGet server URL (defaults to "https://api.nuget.org/v3/index.json"). Use "https://nuget.pkg.github.com/OWNER/index.json" to publish to GitHub Packages (replace 'OWNER' with GitHub organization name or username)|
 
 ## PyPI
 
