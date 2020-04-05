@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eladb/jsii-release.git"
+    "url": "git+https://github.com/jsii-code-samples/jsii-release.git"
   },
   "keywords": [
     "jsii"
@@ -22,7 +22,7 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/eladb/jsii-release/issues"
+    "url": "https://github.com/jsii-code-samples/jsii-release/issues"
   },
-  "homepage": "https://github.com/eladb/jsii-release#readme"
+  "homepage": "https://github.com/jsii-code-samples/jsii-release#readme"
 }
