@@ -15,4 +15,5 @@ jobs:
     - run: npm pack
     - run: bin/jsii-release-npm .
       env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_REGISTRY: 'npm.pkg.github.com'
