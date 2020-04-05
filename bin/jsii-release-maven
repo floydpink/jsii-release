@@ -42,14 +42,19 @@ set -eu # we don't want "pipefail" to implement idempotency
 error() { echo "❌ $@"; exit 1; }
 
 cd "${1:-"dist/java"}"
+if [[ -n "${MAVEN_GITHUB:-}" ]]; then
+    [ -z "${MAVEN_ENDPOINT:-}" ] && error "MAVEN_ENDPOINT is required"
+    github_package=true
+else
+    [ -z "${MAVEN_STAGING_PROFILE_ID:-}" ] && error "MAVEN_STAGING_PROFILE_ID is required"
+    [ -z "${MAVEN_USERNAME:-}" ] && error "MAVEN_USERNAME is required"
+    [ -z "${MAVEN_PASSWORD:-}" ] && error "MAVEN_PASSWORD is required"
 
-[ -z "${MAVEN_STAGING_PROFILE_ID:-}" ] && error "MAVEN_STAGING_PROFILE_ID is required"
-[ -z "${MAVEN_USERNAME:-}" ] && error "MAVEN_USERNAME is required"
-[ -z "${MAVEN_PASSWORD:-}" ] && error "MAVEN_PASSWORD is required"
-
-[ -z "${MAVEN_GPG_PRIVATE_KEY_PASSPHRASE:-}" ] && error "MAVEN_GPG_PRIVATE_KEY_PASSPHRASE is required"
-[ -z "${MAVEN_GPG_PRIVATE_KEY_FILE:-}" ] && [ -z "${MAVEN_GPG_PRIVATE_KEY:-}" ] && error "MAVEN_GPG_PRIVATE_KEY_FILE or MAVEN_GPG_PRIVATE_KEY is required"
-[ -n "${MAVEN_GPG_PRIVATE_KEY:-}" ] && [ -n "${MAVEN_GPG_PRIVATE_KEY_FILE:-}" ] && error "Cannot specify both MAVEN_GPG_PRIVATE_KEY and MAVEN_GPG_PRIVATE_KEY_FILE"
+    [ -z "${MAVEN_GPG_PRIVATE_KEY_PASSPHRASE:-}" ] && error "MAVEN_GPG_PRIVATE_KEY_PASSPHRASE is required"
+    [ -z "${MAVEN_GPG_PRIVATE_KEY_FILE:-}" ] && [ -z "${MAVEN_GPG_PRIVATE_KEY:-}" ] && error "MAVEN_GPG_PRIVATE_KEY_FILE or MAVEN_GPG_PRIVATE_KEY is required"
+    [ -n "${MAVEN_GPG_PRIVATE_KEY:-}" ] && [ -n "${MAVEN_GPG_PRIVATE_KEY_FILE:-}" ] && error "Cannot specify both MAVEN_GPG_PRIVATE_KEY and MAVEN_GPG_PRIVATE_KEY_FILE"
+    github_package=false
+fi
 
 if [[ -n "${MAVEN_DRYRUN:-}" ]]; then
     echo "==========================================="

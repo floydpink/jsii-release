@@ -119,6 +119,26 @@ and then assign it to `MAVEN_GPG_PRIVATE_KEY`:
 $ echo $(cat -e private.pem) | sed 's/\$ /\\n/g' | sed 's/\$$//'
 ```
 
+## Maven (GitHub Packages)
+
+Publishes all Maven modules in the `DIR` to [GitHub Packages]https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-apache-maven-for-use-with-github-packages).
+
+**Usage:**
+
+```shell
+npx jsii-release-maven [DIR]
+```
+
+`DIR` is a directory with a local maven layout. Default is `dist/java`.
+
+**Options (environment variables):**
+
+|Option|Required|Description|
+|------|--------|-----------|
+|`MAVEN_GITHUB`|Yes|Set to "true" to push to GitHub Packages|
+|`MAVEN_ENDPOINT`|Yes|Use "https://maven.pkg.github.com/OWNER/REPOSITORY" to publish to GitHub Packages (replace 'OWNER' with GitHub organization name or username and 'REPOSITORY' is repository name)|
+|`MAVEN_DRYRUN`|No|Set to "true" for a dry run|
+
 ## NuGet
 
 Publishes all `*.nupkg` to the [NuGet Gallery](https://www.nuget.org/).
